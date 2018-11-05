@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.crc.mapper.ResultMapper">
+    <resultMap id="BaseResultMap" type="com.crc.bean.ResultBean">
+        <result column="id" property="id" jdbcType="INTEGER" />
+        <result column="case_id" property="case_id" jdbcType="VARCHAR" />
+        <result column="case_name" property="case_name" jdbcType="VARCHAR" />
+        <result column="start_time" property="start_time" jdbcType="TIMESTAMP" />
+        <result column="end_time" property="end_time" jdbcType="TIMESTAMP" />
+        <result column="status" property="status" jdbcType="VARCHAR" />
+        <result column="remark" property="remark" jdbcType="VARCHAR" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, case_id,case_name,start_time,end_time,status,remark
+    </sql>
+    <parameterMap id="resultBean" type="com.crc.bean.ResultBean"/>
+    <select id="selectById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from result where id=#{id}
+    </select>
+   <select id="selectAll" resultMap="BaseResultMap">
+        select 
+        <include refid="Base_Column_List" />
+         from result order by id desc;
+    </select>
+    <insert id="insert" parameterType="com.crc.bean.ResultBean" useGeneratedKeys="true" keyProperty="id">
+        insert into
+            result(id, case_id,case_name,start_time,end_time,status,remark)
+        values
+            (#{id},#{case_id},#{case_name},#{start_time},#{end_time},#{status},#{remark})
+    </insert>
+</mapper>

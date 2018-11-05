@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.crc.mapper.TestcasesMapper">
+    <resultMap id="BaseResultMap" type="com.crc.bean.TestcasesBean">
+        <result column="id" property="id" jdbcType="INTEGER" />
+        <result column="casename" property="casename" jdbcType="VARCHAR" />
+        <result column="classname" property="classname" jdbcType="VARCHAR" />
+         <result column="functionname" property="functionname" jdbcType="VARCHAR" />
+        <result column="params" property="params" jdbcType="VARCHAR" />      
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id, casename,classname,functionname,params
+    </sql>
+    <select id="getAll" resultMap="BaseResultMap">
+        select 
+        <include refid="Base_Column_List" />
+         from testcases 
+        <where>
+        <if test="#{arg0} !=null and #{arg1} !=null">
+        typeid=#{arg0} 
+        </if>
+        <if test="#{arg0} !=null and #{arg1} !=null">
+        and projectid=#{arg1}
+        </if>
+        <if test="#{arg0} ==null and #{arg1} !=null">
+        projectid=#{arg1}
+        </if>
+        </where>  
+        order by id asc;
+    </select>
+    
+    <select id = "getPart" resultMap = "BaseResultMap" parameterType="java.lang.String">
+    	select
+    	<include refid="Base_Column_List" />
+    	from testcases
+    	<where>
+    	<if test="casename != null and casename != ''">
+    	casename like CONCAT('%',#{casename},'%')
+    	</if>
+    	<if test="classname != null and classname != ''">
+    	AND upper(classname) like CONCAT('%',upper(#{classname}),'%')
+    	</if>
+    	</where> 
+    	order by id asc;
+    </select>
+    </mapper>

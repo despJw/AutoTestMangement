@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.crc.mapper.SequenceMapper">
+    <resultMap id="BaseResultMap" type="com.crc.bean.SequenceBean">
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="current_value" property="current_value" jdbcType="INTEGER" />
+        <result column="increment" property="increment" jdbcType="INTEGER" />
+        <result column="version" property="version" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <parameterMap id="sequenceBean" type="com.crc.bean.SequenceBean"/>
+    <sql id="Base_Column_List">
+        name, current_value,increment,version
+    </sql>
+    <select id="selectByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from sequence where name=#{name}
+    </select>
+
+    <update id="update" useGeneratedKeys="true">
+        update sequence set current_value=#{arg2},version=#{arg3} where name = #{arg0} and version=#{arg1} 
+    </update>
+</mapper>

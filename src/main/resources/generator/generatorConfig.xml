@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+  <context id="testTables" targetRuntime="MyBatis3">
+  	<commentGenerator>
+  		<property name="suppressAllComments" value="true" />
+  	</commentGenerator>
+    <jdbcConnection connectionURL="jdbc:mysql://localhost:3306/autotestdb?characterEncoding=UTF-8&amp;useUnicode=true" driverClass="com.mysql.jdbc.Driver" password="auto123456" userId="autotest" />
+    <javaModelGenerator targetPackage="com.crc.bean" targetProject="src/main/java" />
+    <sqlMapGenerator targetPackage="mapping" targetProject="src/main/resources" />
+    <javaClientGenerator targetPackage="com.crc.mapper" targetProject="src/main/java" type="XMLMAPPER" />
+    <table schema="autotest" tableName="user">
+    </table>
+  </context>
+</generatorConfiguration>
